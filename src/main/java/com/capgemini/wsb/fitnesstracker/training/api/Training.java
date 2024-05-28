@@ -3,10 +3,7 @@ package com.capgemini.wsb.fitnesstracker.training.api;
 import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 @Entity
@@ -34,6 +31,13 @@ public class Training {
     @Column(name = "activity_type", nullable = false)
     private ActivityType activityType;
 
+    /**
+     * -- SETTER --
+     *  Sets the distance of the training.
+     *
+     * @param distance The new distance value.
+     */
+    @Setter
     @Column(name = "distance")
     private double distance;
 
@@ -54,5 +58,6 @@ public class Training {
         this.distance = distance;
         this.averageSpeed = averageSpeed;
     }
+
 
 }
