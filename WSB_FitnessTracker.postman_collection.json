@@ -7,179 +7,347 @@
 	},
 	"item": [
 		{
-			"name": "GetUsers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AddUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Bruno\",\r\n    \"lastName\": \"Stelmaszyk\",\r\n    \"birthdate\": \"1997-01-11\",\r\n    \"email\": \"bruno@stelmaszyk.dev\"\r\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/v1/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetUserById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateUserData",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Bruce\",\r\n    \"lastName\": \"Steldev\",\r\n    \"birthdate\": \"1997-01-11\",\r\n    \"email\": \"bruce@stel.dev\"\r\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "AddUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Bruno\",\r\n    \"lastName\": \"Stelmaszyk\",\r\n    \"birthdate\": \"1997-01-11\",\r\n    \"email\": \"bruno@stelmaszyk.dev\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/v1/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UserLookupByEmail",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/users/search?email=bruce@stel.dev",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users",
-						"search"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "bruce@stel.dev"
+				{
+					"name": "GetUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"1"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteUser",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UserLookupByAge",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/users/search?age=25",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"users",
-						"search"
-					],
-					"query": [
-						{
-							"key": "age",
-							"value": "25"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserData",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Bruce\",\r\n    \"lastName\": \"Steldev\",\r\n    \"birthdate\": \"1997-01-11\",\r\n    \"email\": \"bruce@stel.dev\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"1"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "UserLookupByEmail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users/search?email=bruce@stel.dev",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "bruce@stel.dev"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserLookupByAge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users/search?age=25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "age",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Trainings",
+			"item": [
+				{
+					"name": "GetTrainings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTrainingsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTrainingForUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTrainingsAfterDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/ended-after?date=2023-05-30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"ended-after"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-05-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTrainingByActivity",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTraining",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"userId\": 1,\r\n       \"startTime\": \"2023-06-01T10:00:00\",\r\n       \"endTime\": \"2023-06-01T11:30:00\",\r\n       \"activityType\": \"CYCLING\",\r\n       \"distance\": 25.0,\r\n       \"averageSpeed\": 18.5\r\n     }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTrainingDistance",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"distance\": 30.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/1/distance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"1",
+								"distance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
