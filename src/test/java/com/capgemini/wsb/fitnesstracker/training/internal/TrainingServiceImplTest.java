@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.FluentQuery;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -190,7 +191,7 @@ public class TrainingServiceImplTest {
             }
 
             @Override
-            public Iterable<Training> findAllById(Iterable<Long> ids) {
+            public List<Training> findAllById(Iterable<Long> ids) {
                 List<Training> result = new ArrayList<>();
                 for (Long id : ids) {
                     findById(id).ifPresent(result::add);
@@ -243,14 +244,82 @@ public class TrainingServiceImplTest {
 
             @Override
             public <S extends Training, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
-                return queryFunction.apply(FluentQuery.FetchableFluentQuery.empty());
+                return queryFunction.apply(new FluentQuery.FetchableFluentQuery<S>() {
+                    @Override
+                    public FetchableFluentQuery<S> sortBy(Sort sort) {
+                        return this;
+                    }
+
+                    @Override
+                    public <R1> FetchableFluentQuery<R1> as(Class<R1> resultType) {
+                        return (FetchableFluentQuery<R1>) this;
+                    }
+
+                    @Override
+                    public Page<S> page(Pageable pageable) {
+                        return Page.empty();
+                    }
+
+                    @Override
+                    public Stream<S> stream() {
+                        return Stream.empty();
+                    }
+
+                    @Override
+                    public long count() {
+                        return 0;
+                    }
+
+                    @Override
+                    public boolean exists() {
+                        return false;
+                    }
+
+                    @Override
+                    public List<S> all() {
+                        return Collections.emptyList();
+                    }
+
+                    @Override
+                    public S oneValue() {
+                        return null;
+                    }
+
+                    @Override
+                    public S firstValue() {
+                        return null;
+                    }
+
+                    @Override
+                    public FetchableFluentQuery<S> project(Collection<String> properties) {
+                        return this;
+                    }
+                });
             }
         };
 
-        userProvider = userId -> {
-            User user = new User();
-            user.setId(userId);
-            return Optional.of(user);
+        userProvider = new UserProvider() {
+            private final Map<Long, User> userMap = new HashMap<>();
+
+            @Override
+            public Optional<User> getUser(Long userId) {
+                User user = new User();
+                user.setId(userId);
+                userMap.put(userId, user);
+                return Optional.of(user);
+            }
+
+            @Override
+            public Optional<User> getUserByEmail(String email) {
+                return userMap.values().stream()
+                        .filter(user -> user.getEmail().equals(email))
+                        .findFirst();
+            }
+
+            @Override
+            public List<User> findAllUsers() {
+                return new ArrayList<>(userMap.values());
+            }
         };
 
         trainingService = new TrainingServiceImpl(trainingRepository, userProvider);
