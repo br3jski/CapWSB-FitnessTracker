@@ -348,6 +348,33 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "TrainingNotification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/1/notify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"1",
+								"notify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

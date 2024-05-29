@@ -1,5 +1,7 @@
 package com.capgemini.wsb.fitnesstracker.training.internal;
 
+import com.capgemini.wsb.fitnesstracker.mail.api.EmailDto;
+import com.capgemini.wsb.fitnesstracker.mail.api.EmailSender;
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingNotFoundException;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
@@ -21,6 +23,7 @@ public class TrainingServiceImplTest {
     private TrainingServiceImpl trainingService;
     private TrainingRepository trainingRepository;
     private UserProvider userProvider;
+    private EmailSender emailSender;
 
     private Training training;
     private User user;
@@ -299,30 +302,31 @@ public class TrainingServiceImplTest {
         };
 
         userProvider = new UserProvider() {
-            private final Map<Long, User> userMap = new HashMap<>();
-
             @Override
             public Optional<User> getUser(Long userId) {
                 User user = new User();
                 user.setId(userId);
-                userMap.put(userId, user);
                 return Optional.of(user);
             }
 
             @Override
             public Optional<User> getUserByEmail(String email) {
-                return userMap.values().stream()
-                        .filter(user -> user.getEmail().equals(email))
-                        .findFirst();
+                return Optional.empty();
             }
 
             @Override
             public List<User> findAllUsers() {
-                return new ArrayList<>(userMap.values());
+                return Collections.emptyList();
             }
         };
 
-        trainingService = new TrainingServiceImpl(trainingRepository, userProvider);
+        emailSender = new EmailSender() {
+            @Override
+            public void send(EmailDto email) {
+            }
+        };
+
+        trainingService = new TrainingServiceImpl(trainingRepository, userProvider, emailSender);
 
         user = new User();
         user.setId(1L);
@@ -330,7 +334,10 @@ public class TrainingServiceImplTest {
         training = new Training(user, new Date(), new Date(), ActivityType.RUNNING, 10.0, 5.0);
         training.setId(1L);
         trainingRepository.save(training);
+
+
     }
+
 
     @Test
     void testCreateTraining() {
@@ -395,5 +402,50 @@ public class TrainingServiceImplTest {
         assertThrows(TrainingNotFoundException.class, () -> {
             trainingService.updateTrainingDistance(2L, 20.0);
         });
+    }
+
+    @Test
+    void testSendTrainingCompletionNotification() {
+        // Arrange
+        Long trainingId = 1L;
+        String recipientEmail = "tesciki.testowe@testujemy.test";
+        String senderName = "Testującysię FitnessTracker";
+        String activityName = "Running";
+        long durationMinutes = 60;
+
+        User user = new User();
+        user.setId(1L);
+        user.setFirstName("John");
+        user.setEmail(recipientEmail);
+
+        Date startTime = new Date();
+        Date endTime = new Date(startTime.getTime() + durationMinutes * 60 * 1000);
+
+        Training training = new Training(user, startTime, endTime, ActivityType.RUNNING, 10.0, 5.0);
+        training.setId(trainingId);
+
+        trainingRepository.save(training);
+
+        List<EmailDto> sentEmails = new ArrayList<>();
+
+        EmailSender emailSender = email -> sentEmails.add(email);
+
+        TrainingServiceImpl trainingService = new TrainingServiceImpl(trainingRepository, userProvider, emailSender);
+
+        // Act
+        trainingService.sendTrainingCompletionNotification(trainingId);
+
+        // Assert
+        assertEquals(1, sentEmails.size(), "Expected one email to be sent");
+
+        EmailDto sentEmail = sentEmails.get(0);
+        assertEquals(recipientEmail, sentEmail.toAddress(), "Unexpected recipient email");
+        assertEquals("Trening ukończony", sentEmail.subject(), "Unexpected email subject");
+        assertTrue(sentEmail.content().contains("John"), "Email content does not contain the expected user name");
+        assertTrue(sentEmail.content().contains("Gratulacje! Kod nie wybuchł, a trening został zakończony."), "Email content does not contain the expected congratulations message");
+        assertTrue(sentEmail.content().contains("Aktywność: Running"), "Email content does not contain the expected activity name");
+        assertTrue(sentEmail.content().contains("Długośc treningu: 60 minutes"), "Email content does not contain the expected duration");
+        assertTrue(sentEmail.content().contains("Tak trzymać!!"), "Email content does not contain the expected encouragement message");
+        assertTrue(sentEmail.content().contains(senderName), "Email content does not contain the expected sender name");
     }
 }

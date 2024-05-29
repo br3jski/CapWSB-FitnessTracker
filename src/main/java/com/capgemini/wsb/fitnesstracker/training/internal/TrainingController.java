@@ -119,4 +119,9 @@ public class TrainingController {
         Training updatedTraining = trainingService.updateTrainingDistance(id, distance);
         return trainingMapper.toDto(updatedTraining);
     }
+
+    @PostMapping("/{id}/notify")
+    public void sendTrainingCompletionNotification(@PathVariable Long id) {
+        trainingService.sendTrainingCompletionNotification(id);
+    }
 }

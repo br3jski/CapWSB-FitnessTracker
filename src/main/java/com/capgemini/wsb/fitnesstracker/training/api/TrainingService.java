@@ -67,4 +67,12 @@ public interface TrainingService {
      * @throws TrainingNotFoundException if the training with the specified ID is not found.
      */
     Training updateTrainingDistance(Long trainingId, double distance);
+
+    /**
+     * Sends a training completion notification email to the user who completed the training.
+     *
+     * @param trainingId the ID of the completed training
+     */
+    void sendTrainingCompletionNotification(Long trainingId);
+
 }
