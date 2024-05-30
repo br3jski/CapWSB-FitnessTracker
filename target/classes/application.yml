@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+    driver-class-name: "org.h2.Driver"
+    username: "sa"
+    password: "password"
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 6c9c6aafc9393f
+    password: 702a4fa08f28a4
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  from: supertester@pocztufka.pl
