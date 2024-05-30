@@ -16,7 +16,6 @@ public interface UserService {
 
     List<User> findAllUsers();
 
-    // Dodaj te nowe metody
     void deleteUser(Long userId);
 
     User updateUser(Long userId, User user);
